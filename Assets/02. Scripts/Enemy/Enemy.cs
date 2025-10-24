@@ -8,9 +8,15 @@ public class Enemy : MonoBehaviour
     [Header("데이터 참조")]
     public EnemyDataSO enemyData;
 
+    [Header("공격 설정")]
+    [Tooltip("플레이어에게 피해를 줄 간격(초)")]
+    [SerializeField] private float attackInterval = 1.0f; // [가정] 적 공통 쿨다운(원하면 SO로 승격 가능)
+    private float nextAttackTime = 0f;
+
     private float currentHP;
     private Rigidbody2D rb;
     private Transform player;
+    private PlayerBase playerBase;
 
     private void Awake()
     {
@@ -29,47 +35,51 @@ public class Enemy : MonoBehaviour
 
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null)
+        {
             player = p.transform;
+            playerBase = p.GetComponent<PlayerBase>(); // [가정] PlayerBase 존재, TakeDamage(float) 보유
+        }
     }
 
     private void FixedUpdate()
     {
-        if (player == null || enemyData == null)
-            return;
+        if (player == null || enemyData == null) return;
 
+        // 플레이어 추적 (정지거리 없이 계속 따라감)
         Vector2 dir = (player.position - transform.position);
-        float dist = dir.magnitude;
-
-        if (dist > enemyData.stopDistance)
-        {
-            rb.velocity = dir.normalized * enemyData.moveSpeed;
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-            // TODO: PlayerBase 구현 후 플레이어에게 데미지 전달 추가
-        }
+        rb.velocity = dir.normalized * enemyData.moveSpeed;
     }
 
     public void TakeDamage(float amount)
     {
         currentHP -= amount;
-        if (currentHP <= 0f)
-            Die();
+        if (currentHP <= 0f) Die();
     }
 
     private void Die()
     {
-        // TODO: DropManager 연결 시 드랍 로직 추가 가능
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
+    // ── 충돌 상태에서 주기적으로 플레이어에 피해 적용 ──
+    private void TryAttackPlayer()
     {
-        if (enemyData != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, enemyData.stopDistance);
-        }
+        if (playerBase == null) return;
+        if (Time.time < nextAttackTime) return;
+
+        playerBase.TakeDamage(enemyData.damage); // [가정] 시그니처 float
+        nextAttackTime = Time.time + attackInterval;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+            TryAttackPlayer();
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+            TryAttackPlayer();
     }
 }

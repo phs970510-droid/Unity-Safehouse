@@ -18,10 +18,6 @@ public class EnemyDataSO : ScriptableObject
     [Tooltip("공격력")]
     public float damage = 5f;
 
-    [Header("행동 관련")]
-    [Tooltip("플레이어 근접 시 멈추는 거리")]
-    public float stopDistance = 0.3f;
-
     [Header("기타")]
     [Tooltip("사망 시 드랍 확률 (0~1)")]
     [Range(0f, 1f)] public float dropChance = 0.3f;
