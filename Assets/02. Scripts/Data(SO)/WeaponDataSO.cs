@@ -16,7 +16,7 @@ public class WeaponDataSO : ScriptableObject
 
     [Header("Åº¾à ¼³Á¤")]
     [Tooltip("ÅºÃ¢´ç Åº ¼ö")]
-    public float maxAmmo = 12;
+    public int maxAmmo = 12;
     [Tooltip("ÃÖ´ë ÅºÃ¢ ¼ö")]
     public int maxMag = 5;
 

@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static UIManager Instance;
+
+    [Header("UIÂüÁ¶")]
+    public Text ammoText;
+    public Text magText;
+
+    private void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateAmmoUI(int currentAmmo, int maxAmmoPerMag, int currentMag)
     {
-        
+        if (ammoText != null)
+            ammoText.text = $"{currentAmmo} / {maxAmmoPerMag}";
+        if (magText != null)
+            magText.text = $"{currentMag} mags";
     }
 }
