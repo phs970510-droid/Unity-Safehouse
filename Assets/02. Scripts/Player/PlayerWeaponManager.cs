@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("보유 무기 목록")]
+    public List<WeaponBase> weaponPrefabs = new List<WeaponBase>();
+    
 }
