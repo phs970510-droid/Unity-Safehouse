@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-
     [Header("UIÂüÁ¶")]
     public Text ammoText;
     public Text magText;
