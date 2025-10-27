@@ -9,27 +9,18 @@ public class WeaponBase : MonoBehaviour
 
     [Header("발사 관련")]
     public GameObject bulletPrefab;
-    public Transform firePoint;
+    [HideInInspector] public Transform firePoint; // Player에서 주입됨
 
     public void Fire()
     {
-        if (weaponData == null)
-        {
+        if (weaponData == null || bulletPrefab == null || firePoint == null)
             return;
-        }
-        else if (bulletPrefab == null)
+
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet b = bullet.GetComponent<Bullet>();
+        if (b != null)
         {
-            return;
-        }
-        else if (firePoint == null)
-        {
-            return;
-        }
-        GameObject bullet=Instantiate(bulletPrefab, firePoint.position,firePoint.rotation);
-        Bullet bull=bullet.GetComponent<Bullet>();
-        if (bull != null) 
-        {
-            bull.Initialize(weaponData.damage);
+            b.Initialize(weaponData.damage);
         }
     }
 }

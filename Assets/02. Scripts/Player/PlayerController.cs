@@ -5,55 +5,33 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("참조")]
-    //값 주입받기
-    public PlayerDataSO playerData;
-    //이미지만 마우스 따라 회전하게 하기
-    public Transform visual;
+    [Header("데이터 참조")]
+    public PlayerDataSO playerData; // 이동 속도 등 기본 데이터
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
     private void Awake()
     {
-        rb=GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        // 키 입력 처리
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
-
-        RotateToMouse();
     }
+
     private void FixedUpdate()
     {
         Move();
     }
+
     private void Move()
-    { 
-        rb.MovePosition(rb.position+moveInput.normalized*playerData.moveSpeed*Time.fixedDeltaTime);
-    }
-
-    private void RotateToMouse()
     {
-        if (visual == null)
-            return;
-
-        //플레이어 기준 위치
-        Vector2 playerPos =transform.position;
-        //월드에서 마우스 좌표
-        Vector2 mousePos=Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //상대 방향 계산
-        float dy=mousePos.y-playerPos.y;
-        float dx=mousePos.x-playerPos.x;
-        
-        //각도 계산
-        float rotateDeg=Mathf.Atan2(dy,dx)*Mathf.Rad2Deg;
-
-        //회전 적용
-        visual.rotation=Quaternion.Euler(0.0f,0.0f,rotateDeg);
+        // 이동 처리 (노멀라이즈로 대각선 속도 보정)
+        Vector2 newPos = rb.position + moveInput.normalized * playerData.moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(newPos);
     }
 }
