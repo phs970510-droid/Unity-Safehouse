@@ -7,7 +7,7 @@ public class PlayerShooter : MonoBehaviour
 {
     [Header("참조")]
     public Transform firePoint; // 총알 발사 기준 위치
-    public Transform visual;    // 캐릭터 외형 (회전 대상)
+    [SerializeField] private SpriteRenderer spriteRenderer; //(flipx 제어용)
 
     private PlayerWeaponManager weaponManager;
     private WeaponBase currentWeapon;
@@ -43,7 +43,7 @@ public class PlayerShooter : MonoBehaviour
             Reload();
     }
 
-    // 마우스 방향으로 FirePoint와 Visual 회전
+    // 마우스 방향으로 FirePoint 회전
     private void RotateToMouse()
     {
         if (firePoint == null) return;
@@ -56,8 +56,10 @@ public class PlayerShooter : MonoBehaviour
         float angle = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 
         firePoint.rotation = Quaternion.Euler(0, 0, angle);
-        if (visual != null)
-            visual.rotation = Quaternion.Euler(0, 0, angle);
+
+        //스프라이트는 좌우만 보기
+        if (spriteRenderer != null)
+            spriteRenderer.flipX = (dx < 0);
     }
 
     // 현재 무기 갱신 및 탄약 초기화
