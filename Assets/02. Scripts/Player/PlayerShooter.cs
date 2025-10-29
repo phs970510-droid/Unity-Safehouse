@@ -17,6 +17,9 @@ public class PlayerShooter : MonoBehaviour
     private int currentMag;
     private bool isAutoFire = false;    //기본은 단발
 
+    private Dictionary<WeaponBase, (int ammo, int mag)> weaponAmmoState
+        = new Dictionary<WeaponBase, (int ammo, int mag)>();
+
     private void Awake()
     {
         weaponManager = GetComponent<PlayerWeaponManager>();
@@ -120,13 +123,29 @@ public class PlayerShooter : MonoBehaviour
     // 현재 무기 갱신 및 탄약 초기화
     private void SetCurrentWeapon()
     {
-        currentWeapon = weaponManager.CurrentWeapon;
-        if (currentWeapon != null && currentWeapon.weaponData != null)
+        if (currentWeapon != null)
         {
+            weaponAmmoState[currentWeapon] = (currentAmmo, currentMag);
+        }
+
+        currentWeapon = weaponManager.CurrentWeapon;
+        if (currentWeapon == null || currentWeapon.weaponData == null)
+            return;
+
+        if (weaponAmmoState.TryGetValue(currentWeapon, out var saved))
+        {
+            currentAmmo = saved.ammo;
+            currentMag = saved.mag;
+        }
+        else
+        {
+            // 첫 사용 무기면 기본값 초기화
             currentAmmo = currentWeapon.weaponData.maxAmmo;
             currentMag = currentWeapon.weaponData.maxMag;
-            UpdateAmmoUI();
+            weaponAmmoState[currentWeapon] = (currentAmmo, currentMag);
         }
+
+        UpdateAmmoUI();
     }
 
     // 발사 처리

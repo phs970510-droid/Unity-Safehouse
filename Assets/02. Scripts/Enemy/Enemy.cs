@@ -1,22 +1,23 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    [Header("µ¥ÀÌÅÍ ÂüÁ¶")]
+    [Header("ë°ì´í„° ì°¸ì¡°")]
     public EnemyDataSO enemyData;
 
-    [Header("°ø°İ ¼³Á¤")]
-    [Tooltip("ÇÃ·¹ÀÌ¾î¿¡°Ô ÇÇÇØ¸¦ ÁÙ °£°İ(ÃÊ)")]
-    [SerializeField] private float attackInterval = 1.0f; // [°¡Á¤] Àû °øÅë Äğ´Ù¿î(¿øÇÏ¸é SO·Î ½Â°İ °¡´É)
+    [Header("ê³µê²© ì„¤ì •")]
+    [Tooltip("í”Œë ˆì´ì–´ì—ê²Œ í”¼í•´ë¥¼ ì¤„ ê°„ê²©(ì´ˆ)")]
+    [SerializeField] private float attackInterval = 1.0f; // [ê°€ì •] ì  ê³µí†µ ì¿¨ë‹¤ìš´(ì›í•˜ë©´ SOë¡œ ìŠ¹ê²© ê°€ëŠ¥)
     private float nextAttackTime = 0f;
 
     private float currentHP;
     private Rigidbody2D rb;
     private Transform player;
     private PlayerBase playerBase;
+    public float CurrentHP => currentHP;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class Enemy : MonoBehaviour
     {
         if (enemyData == null)
         {
-            Debug.LogError($"{name}: EnemyDataSO°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            Debug.LogError($"{name}: EnemyDataSOê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             return;
         }
 
@@ -37,7 +38,7 @@ public class Enemy : MonoBehaviour
         if (p != null)
         {
             player = p.transform;
-            playerBase = p.GetComponent<PlayerBase>(); // [°¡Á¤] PlayerBase Á¸Àç, TakeDamage(float) º¸À¯
+            playerBase = p.GetComponent<PlayerBase>(); // [ê°€ì •] PlayerBase ì¡´ì¬, TakeDamage(float) ë³´ìœ 
         }
     }
 
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
     {
         if (player == null || enemyData == null) return;
 
-        // ÇÃ·¹ÀÌ¾î ÃßÀû (Á¤Áö°Å¸® ¾øÀÌ °è¼Ó µû¶ó°¨)
+        // í”Œë ˆì´ì–´ ì¶”ì  (ì •ì§€ê±°ë¦¬ ì—†ì´ ê³„ì† ë”°ë¼ê°)
         Vector2 dir = (player.position - transform.position);
         rb.velocity = dir.normalized * enemyData.moveSpeed;
     }
@@ -61,13 +62,13 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // ¦¡¦¡ Ãæµ¹ »óÅÂ¿¡¼­ ÁÖ±âÀûÀ¸·Î ÇÃ·¹ÀÌ¾î¿¡ ÇÇÇØ Àû¿ë ¦¡¦¡
+    // â”€â”€ ì¶©ëŒ ìƒíƒœì—ì„œ ì£¼ê¸°ì ìœ¼ë¡œ í”Œë ˆì´ì–´ì— í”¼í•´ ì ìš© â”€â”€
     private void TryAttackPlayer()
     {
         if (playerBase == null) return;
         if (Time.time < nextAttackTime) return;
 
-        playerBase.TakeDamage(enemyData.damage); // [°¡Á¤] ½Ã±×´ÏÃ³ float
+        playerBase.TakeDamage(enemyData.damage); // [ê°€ì •] ì‹œê·¸ë‹ˆì²˜ float
         nextAttackTime = Time.time + attackInterval;
     }
 

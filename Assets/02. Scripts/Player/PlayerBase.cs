@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerWeaponManager))]
 public class PlayerBase : MonoBehaviour
 {
-    [Header("µ¥ÀÌÅÍ")]
+    [Header("ë°ì´í„°")]
     public PlayerDataSO playerData;
 
     private PlayerController controller;
@@ -26,7 +26,7 @@ public class PlayerBase : MonoBehaviour
 
     private void Update()
     {
-        // ¿¹½Ã: Ã¼·Â Ã¼Å©
+        // ì˜ˆì‹œ: ì²´ë ¥ ì²´í¬
         if (playerData.currentHP <= 0)
         {
             Die();
@@ -38,6 +38,9 @@ public class PlayerBase : MonoBehaviour
         playerData.currentHP -= damage;
         if (playerData.currentHP < 0)
             playerData.currentHP = 0;
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdatePlayerHP(playerData.currentHP, playerData.maxHP);
     }
 
     public void Heal(float amount)
@@ -45,12 +48,15 @@ public class PlayerBase : MonoBehaviour
         playerData.currentHP += amount;
         if (playerData.currentHP > playerData.maxHP)
             playerData.currentHP = playerData.maxHP;
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdatePlayerHP(playerData.currentHP, playerData.maxHP);
     }
 
     private void Die()
     {
-        // »ç¸Á Ã³¸® (¿¹: ¸®½ºÆù or ¾À Àç½ÃÀÛ)
-        Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
+        // ì‚¬ë§ ì²˜ë¦¬ (ì˜ˆ: ë¦¬ìŠ¤í° or ì”¬ ì¬ì‹œì‘)
+        Debug.Log("í”Œë ˆì´ì–´ ì‚¬ë§");
         controller.enabled = false;
         shooter.enabled = false;
         weaponManager.enabled = false;
