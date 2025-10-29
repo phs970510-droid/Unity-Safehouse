@@ -14,11 +14,6 @@ public class PlayerDataSO : ScriptableObject
 
     [Header("기타 추가사항")]
     [HideInInspector] public float currentHP;
-
-    private void OnEnable()
-    {
-        currentHP = maxHP;
-    }
     public void UpgradeHP(float value)
     {
         maxHP += value;

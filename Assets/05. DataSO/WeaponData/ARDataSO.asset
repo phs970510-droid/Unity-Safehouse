@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe1722d1b6047a408cbc940aa93f881, type: 3}
   m_Name: ARDataSO
   m_EditorClassIdentifier: 
-  weaponName: Pistol
+  weaponName: AR
   damage: 10
-  fireRate: 1
-  reloadTime: 1
-  maxAmmo: 12
-  maxMag: 5
+  fireRate: 0.1
+  reloadTime: 3
+  maxAmmo: 30
+  maxMag: 3
   isUnlocked: 1

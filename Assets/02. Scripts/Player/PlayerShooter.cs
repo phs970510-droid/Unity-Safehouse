@@ -1,13 +1,13 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerWeaponManager))]
 public class PlayerShooter : MonoBehaviour
 {
-    [Header("ÂüÁ¶")]
-    public Transform firePoint; // ÃÑ¾Ë ¹ß»ç ±âÁØ À§Ä¡
-    [SerializeField] private SpriteRenderer spriteRenderer; //(flipx Á¦¾î¿ë)
+    [Header("ì°¸ì¡°")]
+    public Transform firePoint; // ì´ì•Œ ë°œì‚¬ ê¸°ì¤€ ìœ„ì¹˜
+    [SerializeField] private SpriteRenderer spriteRenderer; //(flipx ì œì–´ìš©)
 
     private PlayerWeaponManager weaponManager;
     private WeaponBase currentWeapon;
@@ -15,6 +15,7 @@ public class PlayerShooter : MonoBehaviour
 
     private int currentAmmo;
     private int currentMag;
+    private bool isAutoFire = false;    //ê¸°ë³¸ì€ ë‹¨ë°œ
 
     private void Awake()
     {
@@ -28,22 +29,21 @@ public class PlayerShooter : MonoBehaviour
 
     private void Update()
     {
-        // ¸¶¿ì½º ¹æÇâ È¸Àü
+        // ë§ˆìš°ìŠ¤ ë°©í–¥ íšŒì „
         RotateToMouse();
 
-        // ¹«±â ±³Ã¼ °¨Áö
+        // ë¬´ê¸° êµì²´ ê°ì§€
         if (weaponManager.CurrentWeapon != currentWeapon)
             SetCurrentWeapon();
 
-        // ÀÔ·Â Ã³¸®
-        if (Input.GetMouseButtonDown(0))
-            TryFire();
+        HandleFire();             //ë°œì‚¬ ì…ë ¥ ì²˜ë¦¬
+        HandleFireModeSwitch();   //ë°œì‚¬ ëª¨ë“œ ì „í™˜
 
         if (Input.GetKeyDown(KeyCode.R))
             Reload();
     }
 
-    // ¸¶¿ì½º ¹æÇâÀ¸·Î FirePoint È¸Àü
+    // ë§ˆìš°ìŠ¤ ë°©í–¥ìœ¼ë¡œ FirePoint íšŒì „
     private void RotateToMouse()
     {
         if (firePoint == null) return;
@@ -57,12 +57,67 @@ public class PlayerShooter : MonoBehaviour
 
         firePoint.rotation = Quaternion.Euler(0, 0, angle);
 
-        //½ºÇÁ¶óÀÌÆ®´Â ÁÂ¿ì¸¸ º¸±â
+        //ìŠ¤í”„ë¼ì´íŠ¸ëŠ” ì¢Œìš°ë§Œ ë³´ê¸°
         if (spriteRenderer != null)
-            spriteRenderer.flipX = (dx < 0);
+        {
+            bool flip = (dx < 0);
+            spriteRenderer.flipX = flip;
+
+            //ë¬´ê¸° íšŒì „ ë³´ì •
+            if (flip)
+            {
+                firePoint.localScale = new Vector3(1, -1, 1);
+            }
+            else
+            {
+                firePoint.localScale = new Vector3(1, 1, 1);
+            }
+        }
     }
 
-    // ÇöÀç ¹«±â °»½Å ¹× Åº¾à ÃÊ±âÈ­
+    private void HandleFire()
+    {
+        if (currentWeapon == null || currentWeapon.weaponData == null)
+            return;
+
+        float fireRate = currentWeapon.weaponData.fireRate;
+
+        if (isAutoFire)
+        {
+            // ì—°ì‚¬ ëª¨ë“œ: ì¢Œí´ë¦­ ìœ ì§€
+            if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+            {
+                TryFire();
+            }
+        }
+        else
+        {
+            // ë‹¨ë°œ ëª¨ë“œ: ì¢Œí´ë¦­ ëˆŒë €ì„ ë•Œë§Œ
+            if (Input.GetMouseButtonDown(0))
+            {
+                TryFire();
+            }
+        }
+    }
+
+    private void HandleFireModeSwitch()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (currentWeapon != null && currentWeapon.weaponData.weaponName == "AR")
+            {
+                isAutoFire = !isAutoFire;
+                string mode = isAutoFire ? "ì—°ì‚¬" : "ë‹¨ë°œ";
+                Debug.Log($"[{currentWeapon.weaponData.weaponName}] ì‚¬ê²© ëª¨ë“œ ì „í™˜: {mode}");
+            }
+            else
+            {
+                Debug.Log("ì´ ë¬´ê¸°ëŠ” ë‹¨ë°œ ì „ìš©ì…ë‹ˆë‹¤.");
+            }
+        }
+    }
+
+    // í˜„ì¬ ë¬´ê¸° ê°±ì‹  ë° íƒ„ì•½ ì´ˆê¸°í™”
     private void SetCurrentWeapon()
     {
         currentWeapon = weaponManager.CurrentWeapon;
@@ -74,7 +129,7 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    // ¹ß»ç Ã³¸®
+    // ë°œì‚¬ ì²˜ë¦¬
     private void TryFire()
     {
         if (currentWeapon == null || currentWeapon.weaponData == null)
@@ -95,7 +150,7 @@ public class PlayerShooter : MonoBehaviour
         UpdateAmmoUI();
     }
 
-    // ÀçÀåÀü ¿äÃ»
+    // ì¬ì¥ì „ ìš”ì²­
     private void Reload()
     {
         if (currentMag > 0 && currentAmmo < currentWeapon.weaponData.maxAmmo)
@@ -105,24 +160,24 @@ public class PlayerShooter : MonoBehaviour
         }
         else
         {
-            Debug.Log("ÀçÀåÀü ºÒ°¡ (¿¹ºñ ÅºÃ¢ ¾øÀ½)");
+            Debug.Log("ì¬ì¥ì „ ë¶ˆê°€ (ì˜ˆë¹„ íƒ„ì°½ ì—†ìŒ)");
         }
     }
 
-    // ÀçÀåÀü Ã³¸® ÄÚ·çÆ¾
+    // ì¬ì¥ì „ ì²˜ë¦¬ ì½”ë£¨í‹´
     private IEnumerator ReloadRoutine()
     {
-        Debug.Log("ÀçÀåÀü Áß...");
+        Debug.Log("ì¬ì¥ì „ ì¤‘...");
         yield return new WaitForSeconds(currentWeapon.weaponData.reloadTime);
 
         currentMag--;
         currentAmmo = currentWeapon.weaponData.maxAmmo;
 
-        Debug.Log($"ÀçÀåÀü ¿Ï·á! ÇöÀç Åº¾à: {currentAmmo}/{currentWeapon.weaponData.maxAmmo}, ¿¹ºñ ÅºÃ¢: {currentMag}");
+        Debug.Log($"ì¬ì¥ì „ ì™„ë£Œ! í˜„ì¬ íƒ„ì•½: {currentAmmo}/{currentWeapon.weaponData.maxAmmo}, ì˜ˆë¹„ íƒ„ì°½: {currentMag}");
         UpdateAmmoUI();
     }
 
-    // Åº¾à UI °»½Å
+    // íƒ„ì•½ UI ê°±ì‹ 
     private void UpdateAmmoUI()
     {
         if (UIManager.Instance != null)
