@@ -19,3 +19,4 @@ MonoBehaviour:
   maxAmmo: 30
   maxMag: 3
   isUnlocked: 1
+  penetration: 1

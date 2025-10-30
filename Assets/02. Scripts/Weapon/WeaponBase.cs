@@ -1,15 +1,15 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
-    [Header("µ¥ÀÌÅÍ ÂüÁ¶")]
+    [Header("ë°ì´í„° ì°¸ì¡°")]
     public WeaponDataSO weaponData;
 
-    [Header("¹ß»ç °ü·Ã")]
+    [Header("ë°œì‚¬ ê´€ë ¨")]
     public GameObject bulletPrefab;
-    [HideInInspector] public Transform firePoint; // Player¿¡¼­ ÁÖÀÔµÊ
+    [HideInInspector] public Transform firePoint; // Playerì—ì„œ ì£¼ì…ë¨
 
     public void Fire()
     {
@@ -20,7 +20,7 @@ public class WeaponBase : MonoBehaviour
         Bullet b = bullet.GetComponent<Bullet>();
         if (b != null)
         {
-            b.Initialize(weaponData.damage);
+            b.Initialize(weaponData.damage, weaponData.penetration);
         }
     }
 }

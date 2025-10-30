@@ -1,25 +1,29 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="WeaponData", menuName ="Game/Weapon Data")]
 public class WeaponDataSO : ScriptableObject
 {
-    [Header("±âº»")]
+    [Header("ê¸°ë³¸")]
     public string weaponName="Pistol";
-    [Tooltip("¹ß´ç µ¥¹ÌÁö")]
+    [Tooltip("ë°œë‹¹ ë°ë¯¸ì§€")]
     public float damage = 10.0f;
-    [Tooltip("¿¬»ç °£°İ(ÃÊ)")]
+    [Tooltip("ì—°ì‚¬ ê°„ê²©(ì´ˆ)")]
     public float fireRate = 1.0f;
-    [Tooltip("ÀçÀåÀü ½Ã°£(ÃÊ)")]
+    [Tooltip("ì¬ì¥ì „ ì‹œê°„(ì´ˆ)")]
     public float reloadTime = 1.0f;
 
-    [Header("Åº¾à ¼³Á¤")]
-    [Tooltip("ÅºÃ¢´ç Åº ¼ö")]
+    [Header("íƒ„ì•½ ì„¤ì •")]
+    [Tooltip("íƒ„ì°½ë‹¹ íƒ„ ìˆ˜")]
     public int maxAmmo = 12;
-    [Tooltip("ÃÖ´ë ÅºÃ¢ ¼ö")]
+    [Tooltip("ìµœëŒ€ íƒ„ì°½ ìˆ˜")]
     public int maxMag = 5;
 
-    [Header("ÇØ±İ ¿©ºÎ")]
+    [Header("í•´ê¸ˆ ì—¬ë¶€")]
     public bool isUnlocked = true;
+
+    [Header("ê´€í†µ ì„¤ì •")]
+    [Tooltip("íƒ„í™˜ì´ ê´€í†µ ê°€ëŠ¥í•œ ì  ìˆ˜ (0 = ê´€í†µ ì—†ìŒ)")]
+    public int penetration = 0;
 }
