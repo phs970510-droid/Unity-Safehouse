@@ -55,7 +55,7 @@ public class PlayerBase : MonoBehaviour
 
     private void Die()
     {
-        // 사망 처리 (예: 리스폰 or 씬 재시작)
+        //사망 처리
         Debug.Log("플레이어 사망");
         controller.enabled = false;
         shooter.enabled = false;
