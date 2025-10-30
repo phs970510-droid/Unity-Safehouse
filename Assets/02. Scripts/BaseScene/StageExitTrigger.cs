@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class StageExitTrigger : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName = "Safehouse";
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -16,6 +14,8 @@ public class StageExitTrigger : MonoBehaviour
             DeathUI deathUI = FindObjectOfType<DeathUI>(true);
             if (deathUI != null)
             {
+                if (!deathUI.gameObject.activeSelf)
+                    deathUI.gameObject.SetActive(true);
                 deathUI.ShowDeathMessage(true);
             }
             else

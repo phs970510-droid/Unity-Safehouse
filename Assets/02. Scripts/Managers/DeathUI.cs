@@ -34,9 +34,6 @@ public class DeathUI : MonoBehaviour
     {
         isEscape = escape;
 
-        if (escape && !gameObject.activeSelf)
-            gameObject.SetActive(true);
-
         if (panel != null)
             panel.SetActive(true);
 
