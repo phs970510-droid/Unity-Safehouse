@@ -61,9 +61,11 @@ public class PlayerBase : MonoBehaviour
         shooter.enabled = false;
         weaponManager.enabled = false;
 
-        DeathUI deathUI = FindObjectOfType<DeathUI>();
+        DeathUI deathUI = FindObjectOfType<DeathUI>(true);
         if (deathUI != null)
             deathUI.ShowDeathMessage(false);
+        else
+            Debug.LogWarning("DeathUI를 찾지 못했습니다!");
     }
 
     public void ApplyData(PlayerDataSO newData)

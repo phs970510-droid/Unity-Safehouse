@@ -14,6 +14,8 @@ public class DeathUI : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeDuration = 1.5f;
 
+    private bool isEscape;
+
     private void Awake()
     {
         if (panel != null)
@@ -27,17 +29,38 @@ public class DeathUI : MonoBehaviour
         }
     }
 
-    // 사망 시
-    public void ShowDeathMessage(bool isEscape = false)
+    // 사망 or 생존시
+    public void ShowDeathMessage(bool escape = false)
     {
+        isEscape = escape;
+
+        if (escape && !gameObject.activeSelf)
+            gameObject.SetActive(true);
+
         if (panel != null)
             panel.SetActive(true);
 
         Time.timeScale = 0f;
+
         if (messageText != null)
-            messageText.text = isEscape ? "탈출 성공!" : "사망하셨습니다";
+            messageText.text = escape? "탈출 성공!" : "사망하셨습니다";
+            messageText.color = escape? Color.green : Color.red;
 
         StartCoroutine(FadeIn());
+    }
+    private void OnEnable()
+    {
+        //DeathPanel이 에디터에서 비활성 상태로 되어있을 경우 대비
+        if (panel != null && !panel.activeSelf)
+            panel.SetActive(true);
+
+        //캔버스 그룹 알파 보정
+        if (canvasGroup != null && canvasGroup.alpha < 1f)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
     }
 
     private IEnumerator FadeIn()

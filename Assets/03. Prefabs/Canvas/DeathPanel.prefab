@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7439071253581602345}
   - component: {fileID: 8970117842509794480}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Death Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 8117313986226975124}
   - component: {fileID: 2279743099570499654}
   - component: {fileID: 5950011856329585973}
+  - component: {fileID: 1700310597290211083}
   m_Layer: 5
   m_Name: DeathPanel
   m_TagString: Untagged
@@ -302,8 +303,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4371944827284788887}
   - {fileID: 7189693761082899844}
+  - {fileID: 4371944827284788887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -386,10 +387,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219542d33122ea5418eb0934f677e39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
-  messageText: {fileID: 0}
-  canvasGroup: {fileID: 0}
+  panel: {fileID: 4993533873442180699}
+  messageText: {fileID: 8970117842509794480}
+  canvasGroup: {fileID: 1700310597290211083}
   fadeDuration: 1.5
+--- !u!225 &1700310597290211083
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993533873442180699}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5500650816621642054
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,4 +523,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3638552990535899740}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5950011856329585973}
+        m_TargetAssemblyTypeName: DeathUI, Assembly-CSharp
+        m_MethodName: OnToSafehouse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
