@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StageExitTrigger : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName = "Shop";
+    [SerializeField] private string nextSceneName = "Safehouse";
 
     private void OnTriggerEnter2D(Collider2D other)
     {

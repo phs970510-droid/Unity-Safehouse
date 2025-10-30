@@ -60,6 +60,10 @@ public class PlayerBase : MonoBehaviour
         controller.enabled = false;
         shooter.enabled = false;
         weaponManager.enabled = false;
+
+        DeathUI deathUI = FindObjectOfType<DeathUI>();
+        if (deathUI != null)
+            deathUI.ShowDeathMessage(false);
     }
 
     public void ApplyData(PlayerDataSO newData)

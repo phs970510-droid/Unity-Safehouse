@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/01. Scenes/Tutorial.unity
     guid: dfae4205e90bb6b41b4c0e5752edb2e8
   - enabled: 1
-    path: Assets/01. Scenes/Shop.unity
+    path: Assets/01. Scenes/Safehouse.unity
     guid: 6e94a19dec86a314ea54e5b4f75b6ce4
   m_configObjects: {}
