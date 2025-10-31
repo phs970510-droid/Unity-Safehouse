@@ -15,8 +15,23 @@ public class PlayerShooter : MonoBehaviour
 
     private int currentAmmo;
     private int currentMag;
+    private int currentExtra;
+
+    private UIManager ui;
+
     private bool isAutoFire = false;    //기본은 단발
 
+<<<<<<< Updated upstream
+=======
+    private Dictionary<WeaponBase, (int ammo, int mag)> weaponAmmoState
+        = new Dictionary<WeaponBase, (int ammo, int mag)>();
+
+    public int CurrentAmmo => currentAmmo;
+    public int CurrentMag => currentMag;
+    public int MaxAmmo => currentWeapon != null ? currentWeapon.weaponData.maxAmmo : 0;
+    public int MaxMag => currentWeapon != null ? currentWeapon.weaponData.maxMag : 0;
+
+>>>>>>> Stashed changes
     private void Awake()
     {
         weaponManager = GetComponent<PlayerWeaponManager>();
@@ -27,6 +42,28 @@ public class PlayerShooter : MonoBehaviour
         SetCurrentWeapon();
     }
 
+    //탄 수급용 메서드 (PickupItem에서 호출)
+    public void AddAmmoAR(int amount)
+    {
+        if (currentWeapon == null || currentWeapon.weaponData == null)
+            return;
+
+        int maxAmmo = currentWeapon.weaponData.maxAmmo;
+        int maxMag = currentWeapon.weaponData.maxMag;
+
+        //여분 탄 먼저 추가
+        currentExtra += amount;
+
+        //여분 탄이 한 탄창 이상이면 탄창으로 변환
+        while (currentExtra >= maxAmmo && currentMag < maxMag)
+        {
+            currentExtra -= maxAmmo;
+            currentMag++;
+        }
+
+        UpdateAmmoUI();
+        Debug.Log($"[PlayerShooter] AR 탄환 +{amount} → {currentMag}mags + {currentExtra}bullets");
+    }
     private void Update()
     {
         // 마우스 방향 회전
@@ -117,19 +154,28 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    // 현재 무기 갱신 및 탄약 초기화
+    //현재 무기 갱신 및 탄약 초기화
     private void SetCurrentWeapon()
     {
         currentWeapon = weaponManager.CurrentWeapon;
         if (currentWeapon != null && currentWeapon.weaponData != null)
         {
+<<<<<<< Updated upstream
+=======
+            currentAmmo = saved.ammo;
+            currentMag = saved.mag;
+        }
+        else
+        {
+            //첫 사용 무기면 기본값 초기화
+>>>>>>> Stashed changes
             currentAmmo = currentWeapon.weaponData.maxAmmo;
             currentMag = currentWeapon.weaponData.maxMag;
             UpdateAmmoUI();
         }
     }
 
-    // 발사 처리
+    //발사 처리
     private void TryFire()
     {
         if (currentWeapon == null || currentWeapon.weaponData == null)
@@ -150,7 +196,7 @@ public class PlayerShooter : MonoBehaviour
         UpdateAmmoUI();
     }
 
-    // 재장전 요청
+    //재장전 요청
     private void Reload()
     {
         if (currentMag > 0 && currentAmmo < currentWeapon.weaponData.maxAmmo)
@@ -164,7 +210,7 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    // 재장전 처리 코루틴
+    //재장전 처리 코루틴
     private IEnumerator ReloadRoutine()
     {
         Debug.Log("재장전 중...");
@@ -177,10 +223,10 @@ public class PlayerShooter : MonoBehaviour
         UpdateAmmoUI();
     }
 
-    // 탄약 UI 갱신
+    //탄약 UI 갱신
     private void UpdateAmmoUI()
     {
         if (UIManager.Instance != null)
-            UIManager.Instance.UpdateAmmoUI(currentAmmo, currentWeapon.weaponData.maxAmmo, currentMag);
+            UIManager.Instance.UpdateAmmoUI(currentAmmo, currentWeapon.weaponData.maxAmmo, currentMag, currentExtra);
     }
 }
