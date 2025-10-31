@@ -29,7 +29,7 @@ public class DeathUI : MonoBehaviour
         }
     }
 
-    // 사망 or 생존시
+    //사망 or 생존시
     public void ShowDeathMessage(bool escape = false)
     {
         isEscape = escape;
@@ -40,8 +40,10 @@ public class DeathUI : MonoBehaviour
         Time.timeScale = 0f;
 
         if (messageText != null)
-            messageText.text = escape? "탈출 성공!" : "사망하셨습니다";
-            messageText.color = escape? Color.green : Color.red;
+        {
+            messageText.text = escape ? "탈출 성공!" : "사망하셨습니다";
+            messageText.color = escape ? Color.green : Color.red;
+        }
 
         StartCoroutine(FadeIn());
     }

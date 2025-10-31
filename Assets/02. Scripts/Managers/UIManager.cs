@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
     public TMP_Text ammoText;
     public TMP_Text magText;
 
+    [SerializeField] private TMPro.TMP_Text moneyText;
+    [SerializeField] private TMPro.TMP_Text scrapText;
+
     private void Awake()
     {
         Instance = this;
@@ -23,12 +26,12 @@ public class UIManager : MonoBehaviour
             hpBar.value = current / max;
     }
 
-    public void UpdateAmmoUI(int currentAmmo, int maxAmmoPerMag, int currentMag)
+    public void UpdateAmmoUI(int currentAmmo, int maxAmmoPerMag, int currentMag, int extraBullets=0)
     {
         if (ammoText != null)
             ammoText.text = $"{currentAmmo} / {maxAmmoPerMag}";
         if (magText != null)
-            magText.text = $"{currentMag} mags";
+            magText.text = $"{currentMag} mags + {extraBullets} bullets";
     }
     private void OnEnable()
     {
@@ -42,5 +45,14 @@ public class UIManager : MonoBehaviour
     {
         if (scene.name == "Safehouse")
             gameObject.SetActive(false);
+    }
+
+    public void UpdateMoney(int value)
+    {
+        if (moneyText != null) moneyText.text = $"$ {value}";
+    }
+    public void UpdateScrap(int value)
+    {
+        if (scrapText != null) scrapText.text = $"Scrap: {value}";
     }
 }
