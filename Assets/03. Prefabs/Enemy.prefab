@@ -336,6 +336,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: b35dc09a862c29a438bd2f850ebe0d42, type: 2}
   attackInterval: 1
+  coinDropChance: 0.2
+  ammoDropChance: 0.05
+  coinAmountRange: {x: 3, y: 10}
+  ammoAmountRange: {x: 10, y: 30}
+  coinPickupPrefab: {fileID: 2013309270219677978, guid: b40117f6632178d4593793f5420bcdf3,
+    type: 3}
+  ammoARPickupPrefab: {fileID: 5492826604356020290, guid: d1b720da4f93e7043acef8ca5a0a8954,
+    type: 3}
 --- !u!58 &2673619017950746296
 CircleCollider2D:
   m_ObjectHideFlags: 0
