@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5010857dc91bb4a9271ecaebe1e06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootBoxPrefab: {fileID: 3003919704063052562, guid: ee802d64cac145344a753334197a4da4,
+  lootBoxPrefab: {fileID: 4556917921906379631, guid: 6b5c4247d9c3f3b4fa2ba784efa9d7f4,
     type: 3}
   areaMin: {x: -10, y: -10}
   areaMax: {x: 10, y: 10}

@@ -24,4 +24,11 @@ public class SafehouseUIManager : MonoBehaviour
         canvasUpgrade.SetActive(target == canvasUpgrade);
         canvasMission.SetActive(target == canvasMission);
     }
+    public void OnSaveAndExit()
+    {
+        Debug.Log("[SafehouseUIManager] 저장 중...");
+        DataManager.Instance.SaveAllData();
+        Debug.Log("[SafehouseUIManager] 저장 완료. 게임 종료.");
+        Application.Quit();
+    }
 }
