@@ -6,6 +6,7 @@ public class SafehouseUIManager : MonoBehaviour
     public GameObject canvasShop;
     public GameObject canvasUpgrade;
     public GameObject canvasMission;
+    public GameObject canvasSaveSlots;
 
     private void Start()
     {
@@ -23,12 +24,27 @@ public class SafehouseUIManager : MonoBehaviour
         canvasShop.SetActive(target == canvasShop);
         canvasUpgrade.SetActive(target == canvasUpgrade);
         canvasMission.SetActive(target == canvasMission);
+        if (canvasSaveSlots != null) canvasSaveSlots.SetActive(target == canvasSaveSlots);
     }
-    public void OnSaveAndExit()
+    public void OnSaveAndExitMenu()
     {
-        Debug.Log("[SafehouseUIManager] 저장 중...");
-        DataManager.Instance.SaveAllData();
-        Debug.Log("[SafehouseUIManager] 저장 완료. 게임 종료.");
+        SetActiveCanvas(canvasSaveSlots);
+    }
+    public void OnSelectSaveSlot(int slotIndex)
+    {
+        Debug.Log($"[SafehouseUIManager] 슬롯 {slotIndex} 저장 중...");
+        DataManager.Instance.SaveAllData(slotIndex);
+        PlayerPrefs.SetInt("LastSaveSlot", slotIndex);
+        PlayerPrefs.Save();
+
+        Debug.Log($"[SafehouseUIManager] 슬롯 {slotIndex} 저장 완료!");
+        Debug.Log("저장 경로: " + Application.persistentDataPath);
+
         Application.Quit();
+    }
+
+    public void OnSaveCancel()
+    {
+        ShowMain();
     }
 }

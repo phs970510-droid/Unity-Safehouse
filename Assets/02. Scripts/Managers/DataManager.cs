@@ -16,10 +16,15 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        Load();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void AddMoney(int amount)
@@ -68,26 +73,55 @@ public class DataManager : MonoBehaviour
         UIManager.Instance?.UpdateMoney(Money);
         UIManager.Instance?.UpdateScrap(Scrap);
     }
-    public void SaveAllData()
+    public void SaveAllData(int slotIndex)
     {
-        PlayerPrefs.SetInt("Money", Money);
-        PlayerPrefs.SetInt("Scrap", Scrap);
+        string prefix = $"Save{slotIndex}_";
+        PlayerPrefs.SetInt(prefix + "Money", Money);
+        PlayerPrefs.SetInt(prefix + "Scrap", Scrap);
 
         if (playerData != null)
         {
-            PlayerPrefs.SetFloat("Player_MaxHP", playerData.maxHP);
-            PlayerPrefs.SetFloat("Player_MoveSpeed", playerData.moveSpeed);
+            PlayerPrefs.SetFloat(prefix + "Player_MaxHP", playerData.maxHP);
+            PlayerPrefs.SetFloat(prefix + "Player_MoveSpeed", playerData.moveSpeed);
         }
 
         foreach (var weapon in allWeaponData)
         {
             if (weapon == null) continue;
-
-            PlayerPrefs.SetInt($"{weapon.weaponName}_Unlocked", weapon.isUnlocked ? 1 : 0);
-            PlayerPrefs.SetFloat($"{weapon.weaponName}_Damage", weapon.damage);
+            PlayerPrefs.SetInt(prefix + $"{weapon.weaponName}_Unlocked", weapon.isUnlocked ? 1 : 0);
+            PlayerPrefs.SetFloat(prefix + $"{weapon.weaponName}_Damage", weapon.damage);
         }
 
         PlayerPrefs.Save();
-        Debug.Log("[DataManager] 데이터 저장 완료");
+        Debug.Log($"[DataManager] 슬롯 {slotIndex} 저장 완료");
+    }
+    public void LoadAllData(int slotIndex)
+    {
+        string prefix = $"Save{slotIndex}_";
+        Money = PlayerPrefs.GetInt(prefix + "Money", 0);
+        Scrap = PlayerPrefs.GetInt(prefix + "Scrap", 0);
+
+        if (playerData != null)
+        {
+            playerData.maxHP = PlayerPrefs.GetFloat(prefix + "Player_MaxHP", playerData.maxHP);
+            playerData.moveSpeed = PlayerPrefs.GetFloat(prefix + "Player_MoveSpeed", playerData.moveSpeed);
+        }
+
+        foreach (var weapon in allWeaponData)
+        {
+            if (weapon == null) continue;
+            weapon.isUnlocked = PlayerPrefs.GetInt(prefix + $"{weapon.weaponName}_Unlocked", 0) == 1;
+            weapon.damage = PlayerPrefs.GetFloat(prefix + $"{weapon.weaponName}_Damage", weapon.damage);
+        }
+
+        UIManager.Instance?.UpdateMoney(Money);
+        UIManager.Instance?.UpdateScrap(Scrap);
+
+        Debug.Log($"[DataManager] 슬롯 {slotIndex} 불러오기 완료");
+    }
+    public bool HasSaveSlot(int slotIndex)
+    {
+        string prefix = $"Save{slotIndex}_";
+        return PlayerPrefs.HasKey(prefix + "Money") || PlayerPrefs.HasKey(prefix + "Player_MaxHP");
     }
 }

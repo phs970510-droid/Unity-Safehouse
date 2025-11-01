@@ -786,9 +786,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasMain: {fileID: 6897003580319973319}
-  canvasShop: {fileID: 0}
-  canvasUpgrade: {fileID: 0}
-  canvasMission: {fileID: 0}
+  canvasShop: {fileID: 3249060873503252019, guid: b032099525a34e14aa8850e3b5f4580b,
+    type: 3}
+  canvasUpgrade: {fileID: 3362744867836053697, guid: 159b1876e6d223c42b83cb655e4a39af,
+    type: 3}
+  canvasMission: {fileID: 3631184542298099798, guid: ec6ece306bd76384e838989a4b5b2f39,
+    type: 3}
+  canvasSaveSlots: {fileID: 2417833447778479579, guid: 3a9dd09fa46686d4f988c0336e52207d,
+    type: 3}
 --- !u!1 &7175799295284460228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,7 +1051,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5658297011590144666}
         m_TargetAssemblyTypeName: SafehouseUIManager, Assembly-CSharp
-        m_MethodName: ShowMain
+        m_MethodName: OnSaveAndExitMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

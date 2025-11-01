@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d41a2e6ba77bfe46a5f871af4177f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pistolData: {fileID: 0}
-  arData: {fileID: 0}
+  pistolData: {fileID: 11400000, guid: 5df1497e004d1d64d848a725c8631ed6, type: 2}
+  arData: {fileID: 11400000, guid: 595a59161ffa8ef45b1c1765e7af9c77, type: 2}
   pistolUpgradeCost: 30
   arUpgradeCost: 50
   pistolDamageUp: 2
