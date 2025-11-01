@@ -14,6 +14,8 @@ public class DataManager : MonoBehaviour
     public PlayerDataSO playerData;
     public List<WeaponDataSO> allWeaponData = new();
 
+    public int CurrentSlot { get; private set; } = 0;
+
     private void Awake()
     {
         if (Instance == null)

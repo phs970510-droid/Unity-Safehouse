@@ -15,7 +15,10 @@ public class MainMenuUI : MonoBehaviour
     private void Start()
     {
         ShowMain();
-        UpdateContinueButton();
+        if (DataManager.Instance != null)
+            UpdateContinueButton();
+        else
+            Debug.LogWarning("[MainMenuUI] DataManager 인스턴스가 아직 없습니다. Continue 버튼 비활성화.");
     }
 
     public void ShowMain()
@@ -75,7 +78,11 @@ public class MainMenuUI : MonoBehaviour
         bool anySave = false;
         for (int i = 1; i <= 4; i++)
         {
-            if (DataManager.Instance.HasSaveSlot(i)) { anySave = true; break; }
+            if (DataManager.Instance.HasSaveSlot(i))
+            {
+                anySave = true;
+                break;
+            }
         }
         continueButton.interactable = anySave;
     }
