@@ -66,6 +66,8 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt("Money", Money);
         PlayerPrefs.SetInt("Scrap", Scrap);
         PlayerPrefs.Save();
+
+        MirrorQuickSaveToCurrentSlotIfAny();
     }
 
     public void Load()
@@ -125,5 +127,21 @@ public class DataManager : MonoBehaviour
     {
         string prefix = $"Save{slotIndex}_";
         return PlayerPrefs.HasKey(prefix + "Money") || PlayerPrefs.HasKey(prefix + "Player_MaxHP");
+    }
+
+    public void SetCurrentSlot(int slotIndex)
+    {
+        CurrentSlot = slotIndex;
+        PlayerPrefs.SetInt("LastSaveSlot", slotIndex);
+        PlayerPrefs.Save();
+    }
+
+    private void MirrorQuickSaveToCurrentSlotIfAny()
+    {
+        if (CurrentSlot <= 0) return;
+        string prefix = $"Save{CurrentSlot}_";
+        PlayerPrefs.SetInt(prefix + "Money", Money);
+        PlayerPrefs.SetInt(prefix + "Scrap", Scrap);
+        PlayerPrefs.Save();
     }
 }

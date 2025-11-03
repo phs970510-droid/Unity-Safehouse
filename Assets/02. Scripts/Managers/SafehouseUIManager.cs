@@ -11,6 +11,11 @@ public class SafehouseUIManager : MonoBehaviour
     private void Start()
     {
         ShowMain();
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateMoney(DataManager.Instance.Money);
+            UIManager.Instance.UpdateScrap(DataManager.Instance.Scrap);
+        }
     }
 
     public void ShowMain() => SetActiveCanvas(canvasMain);
@@ -32,6 +37,7 @@ public class SafehouseUIManager : MonoBehaviour
     }
     public void OnSelectSaveSlot(int slotIndex)
     {
+        DataManager.Instance.SetCurrentSlot(slotIndex);
         Debug.Log($"[SafehouseUIManager] 슬롯 {slotIndex} 저장 중...");
         DataManager.Instance.SaveAllData(slotIndex);
         PlayerPrefs.SetInt("LastSaveSlot", slotIndex);

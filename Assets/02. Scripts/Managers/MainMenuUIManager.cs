@@ -39,6 +39,7 @@ public class MainMenuUI : MonoBehaviour
         if (DataManager.Instance.HasSaveSlot(lastSlot))
         {
             DataManager.Instance.LoadAllData(lastSlot);
+            DataManager.Instance.SetCurrentSlot(lastSlot);
             SceneManager.LoadScene("Safehouse");
         }
         else
@@ -53,6 +54,7 @@ public class MainMenuUI : MonoBehaviour
         if (DataManager.Instance.HasSaveSlot(slotIndex))
         {
             DataManager.Instance.LoadAllData(slotIndex);
+            DataManager.Instance.SetCurrentSlot(slotIndex);
             PlayerPrefs.SetInt("LastSaveSlot", slotIndex);
             SceneManager.LoadScene("Safehouse");
         }

@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainPanel: {fileID: 5090209710265520611}
   loadPanel: {fileID: 6977407505824888847}
-  continueButton: {fileID: 0}
+  continueButton: {fileID: 273348463690802137}
   loadSlotButtons:
   - {fileID: 0}
   - {fileID: 0}

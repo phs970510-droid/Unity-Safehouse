@@ -1,15 +1,15 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-    [Header("º¸À¯ ¹«±â ¸ñ·Ï (ÇÁ¸®ÆÕ)")]
+    [Header("ë³´ìœ  ë¬´ê¸° ëª©ë¡ (í”„ë¦¬íŒ¹)")]
     public List<WeaponBase> weaponPrefabs = new List<WeaponBase>();
 
-    [Header("ÇÊ¼ö ÂüÁ¶")]
-    public Transform weaponHolder;     // Player ¾È¿¡ ºó ¿ÀºêÁ§Æ® WeaponHolder
-    public Transform playerFirePoint;  // Player ¾È¿¡ FirePoint (°íÁ¤ ¹ß»ç À§Ä¡)
+    [Header("í•„ìˆ˜ ì°¸ì¡°")]
+    public Transform weaponHolder;     // Player ì•ˆì— ë¹ˆ ì˜¤ë¸Œì íŠ¸ WeaponHolder
+    public Transform playerFirePoint;  // Player ì•ˆì— FirePoint (ê³ ì • ë°œì‚¬ ìœ„ì¹˜)
 
     private List<WeaponBase> weaponInstances = new List<WeaponBase>();
     private int currentIndex = 0;
@@ -17,7 +17,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Start()
     {
-        // ¹«±â ÇÁ¸®ÆÕ ÀÎ½ºÅÏ½º »ı¼º & Player ÀÚ½ÄÀ¸·Î ºÙÀÌ±â
+        // ë¬´ê¸° í”„ë¦¬íŒ¹ ì¸ìŠ¤í„´ìŠ¤ ìƒì„± & Player ìì‹ìœ¼ë¡œ ë¶™ì´ê¸°
         foreach (WeaponBase prefab in weaponPrefabs)
         {
             if (prefab == null) continue;
@@ -56,6 +56,16 @@ public class PlayerWeaponManager : MonoBehaviour
         if (index < 0 || index >= weaponInstances.Count) return;
         if (index == currentIndex) return;
 
+        WeaponBase targetWeapon = weaponInstances[index];
+        if (targetWeapon == null || targetWeapon.weaponData == null)
+            return;
+
+        if (!targetWeapon.weaponData.isUnlocked)
+        {
+            Debug.Log($"[PlayerWeaponManager] {targetWeapon.weaponData.weaponName}ì€(ëŠ”) ì•„ì§ í•´ê¸ˆë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+            return;
+        }
+
         for (int i = 0; i < weaponInstances.Count; i++)
         {
             weaponInstances[i].gameObject.SetActive(i == index);
@@ -64,5 +74,7 @@ public class PlayerWeaponManager : MonoBehaviour
         currentIndex = index;
         CurrentWeapon = weaponInstances[currentIndex];
         CurrentWeapon.firePoint = playerFirePoint;
+
+        Debug.Log($"[PlayerWeaponManager] ë¬´ê¸° ì „í™˜: {CurrentWeapon.weaponData.weaponName}");
     }
 }

@@ -283,6 +283,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1359284309 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 273348463690802137, guid: c976f5c66928c7d4899a563e9de1d7f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 410862941693794121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1637884491 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3212957615461224073, guid: c976f5c66928c7d4899a563e9de1d7f8,
@@ -376,6 +388,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3212957615461224073, guid: c976f5c66928c7d4899a563e9de1d7f8,
+        type: 3}
+      propertyPath: continueButton
+      value: 
+      objectReference: {fileID: 1359284309}
     - target: {fileID: 8874198808226910590, guid: c976f5c66928c7d4899a563e9de1d7f8,
         type: 3}
       propertyPath: m_Pivot.x
