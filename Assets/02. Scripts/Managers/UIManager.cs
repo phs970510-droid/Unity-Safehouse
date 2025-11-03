@@ -36,6 +36,12 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        if (DataManager.Instance != null)
+        {
+            UpdateMoney(DataManager.Instance.Money);
+            UpdateScrap(DataManager.Instance.Scrap);
+        }
     }
     private void OnDisable()
     {

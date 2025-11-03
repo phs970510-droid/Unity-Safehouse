@@ -11,6 +11,6 @@ public class MissionBoard : MonoBehaviour
     }
     public void GoToStage01()
     {
-        SceneManager.LoadScene("Stage_01");
+        SceneManager.LoadScene("Stage01");
     }
 }
