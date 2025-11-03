@@ -14,7 +14,7 @@ public class ShopSystem : MonoBehaviour
     [Header("가격 설정")]
     public int hpUpgradeCost = 200;
     public int speedUpgradeCost = 150;
-    public int unlockARCost = 500;
+    public int unlockARCost = 50;
 
     // 스탯 강화
     public void BuyStat_HP()
@@ -63,7 +63,6 @@ public class ShopSystem : MonoBehaviour
             Debug.Log($"[ShopSystem] {weaponName}은(는) 이미 해금되어 있습니다.");
             return;
         }
-
         int cost = 0;
         switch (weaponName)
         {

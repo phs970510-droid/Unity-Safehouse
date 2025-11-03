@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerShooter : MonoBehaviour
 {
     [Header("참조")]
-    public Transform firePoint; // 총알 발사 기준 위치
-    [SerializeField] private SpriteRenderer spriteRenderer; //(flipx 제어용)
+    public Transform firePoint; //총알 발사 기준 위치
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private PlayerWeaponManager weaponManager;
     private WeaponBase currentWeapon;
@@ -63,10 +63,10 @@ public class PlayerShooter : MonoBehaviour
     }
     private void Update()
     {
-        // 마우스 방향 회전
+        //마우스 방향 회전
         RotateToMouse();
 
-        // 무기 교체 감지
+        //무기 교체 감지
         if (weaponManager.CurrentWeapon != currentWeapon)
             SetCurrentWeapon();
 
@@ -77,36 +77,25 @@ public class PlayerShooter : MonoBehaviour
             Reload();
     }
 
-    // 마우스 방향으로 FirePoint 회전
+    private void LateUpdate()
+    {
+        if (Camera.main != null)
+        {
+            // 회전값만 고정 (위치는 부모 따라감)
+            Camera.main.transform.rotation = Quaternion.identity;
+        }
+    }
+
+    //마우스 방향으로 회전
     private void RotateToMouse()
     {
-        if (firePoint == null) return;
+        if (Camera.main == null)
+            return;
 
-        Vector2 playerPos = transform.position;
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 dirVec = mousePos - (Vector2)transform.position;
 
-        float dy = mousePos.y - playerPos.y;
-        float dx = mousePos.x - playerPos.x;
-        float angle = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-
-        firePoint.rotation = Quaternion.Euler(0, 0, angle);
-
-        //스프라이트는 좌우만 보기
-        if (spriteRenderer != null)
-        {
-            bool flip = (dx < 0);
-            spriteRenderer.flipX = flip;
-
-            //무기 회전 보정
-            if (flip)
-            {
-                firePoint.localScale = new Vector3(1, -1, 1);
-            }
-            else
-            {
-                firePoint.localScale = new Vector3(1, 1, 1);
-            }
-        }
+        transform.right= dirVec.normalized;
     }
 
     private void HandleFire()
@@ -118,7 +107,7 @@ public class PlayerShooter : MonoBehaviour
 
         if (isAutoFire)
         {
-            // 연사 모드: 좌클릭 유지
+            //연사 모드: 좌클릭 유지
             if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
             {
                 TryFire();
@@ -126,7 +115,7 @@ public class PlayerShooter : MonoBehaviour
         }
         else
         {
-            // 단발 모드: 좌클릭 눌렀을 때만
+            //단발 모드: 좌클릭 눌렀을 때만
             if (Input.GetMouseButtonDown(0))
             {
                 TryFire();

@@ -18,4 +18,5 @@ MonoBehaviour:
   reloadTime: 3
   maxAmmo: 30
   maxMag: 3
-  isUnlocked: 1
+  isUnlocked: 0
+  penetration: 0
