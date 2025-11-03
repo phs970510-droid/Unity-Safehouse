@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01. Scenes/Safehouse.unity
     guid: 6e94a19dec86a314ea54e5b4f75b6ce4
+  - enabled: 1
+    path: Assets/01. Scenes/Stage01.unity
+    guid: 6c35a9059f4284243b8777140c9dbae0
   m_configObjects: {}

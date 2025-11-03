@@ -36,12 +36,6 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        if (DataManager.Instance != null)
-        {
-            UpdateMoney(DataManager.Instance.Money);
-            UpdateScrap(DataManager.Instance.Scrap);
-        }
     }
     private void OnDisable()
     {
@@ -49,8 +43,11 @@ public class UIManager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Safehouse")
-            gameObject.SetActive(false);
+        if (DataManager.Instance != null)
+        {
+            UpdateMoney(DataManager.Instance.Money);
+            UpdateScrap(DataManager.Instance.Scrap);
+        }
     }
 
     public void UpdateMoney(int value)
