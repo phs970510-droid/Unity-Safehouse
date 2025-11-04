@@ -15,21 +15,22 @@ public class LootBoxSpawner : MonoBehaviour
     public float minDistance = 1.5f;
     public LayerMask lootBoxLayer;
 
-    private bool spawned = false;
-
-    private void Start()
+    private void OnEnable()
     {
-        if (spawned || lootBoxPrefab == null) return;
-        spawned = true;
+        if (lootBoxPrefab == null) return;
+        SpawnLootBoxes();
+    }
 
+    private void SpawnLootBoxes()
+    {
         int placed = 0;
-        int safety = 500; // 무한 루프 방지용
+        int safety = 500;
 
         while (placed < spawnCount && safety > 0)
         {
             safety--;
 
-            Vector2 pos = new Vector2(
+            Vector2 pos = (Vector2)transform.position + new Vector2(
                 Random.Range(areaMin.x, areaMax.x),
                 Random.Range(areaMin.y, areaMax.y)
             );
@@ -45,6 +46,7 @@ public class LootBoxSpawner : MonoBehaviour
         if (placed < spawnCount)
             Debug.LogWarning($"[LootBoxSpawner] {spawnCount}개 중 {placed}개만 배치됨 (공간 부족)");
     }
+
 
     private void OnDrawGizmosSelected()
     {

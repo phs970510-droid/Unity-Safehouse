@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootBoxPrefab: {fileID: 4556917921906379631, guid: 6b5c4247d9c3f3b4fa2ba784efa9d7f4,
     type: 3}
-  areaMin: {x: -10, y: -10}
-  areaMax: {x: 10, y: 10}
-  spawnCount: 5
+  areaMin: {x: -30, y: -30}
+  areaMax: {x: 30, y: 30}
+  spawnCount: 20
   minDistance: 1.5
   lootBoxLayer:
     serializedVersion: 2

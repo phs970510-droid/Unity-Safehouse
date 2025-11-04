@@ -9,10 +9,10 @@ public class LootBox : MonoBehaviour
     public KeyCode key = KeyCode.E;
 
     [Header("드랍 설정 (null 없음)")]
-    public GameObject coinPickupPrefab;   // Pickup_Coin
-    public GameObject scrapPickupPrefab;  // Pickup_Scrap
+    public GameObject coinPickupPrefab;   //Pickup_Coin
+    public GameObject scrapPickupPrefab;  //Pickup_Scrap
 
-    [Tooltip("코인 드랍 확률(0~1). 스크랩은 1 - 이 값")]
+    [Tooltip("코인 드랍 확률(0~1) 스크랩은 1-(코인 확률)")]
     [Range(0f, 1f)] public float coinProbability = 0.6f;
 
     [Header("코인/스크랩 수량 범위")]

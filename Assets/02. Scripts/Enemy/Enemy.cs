@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     public GameObject coinPickupPrefab;
     public GameObject ammoARPickupPrefab;
 
+    private float maxChaseDistance = 50f;   //일정 거리 이상 멀어지면 소멸
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +50,18 @@ public class Enemy : MonoBehaviour
         {
             player = p.transform;
             playerBase = p.GetComponent<PlayerBase>(); // [가정] PlayerBase 존재, TakeDamage(float) 보유
+        }
+    }
+    //소멸을 통해 무한맵에서 좀비 물량으로 인한 렉 방지
+    private void Update()
+    {
+        if (player == null) return;
+
+        float dist = Vector2.Distance(player.position, transform.position);
+        if (dist > maxChaseDistance)
+        {
+            Destroy(gameObject);
+            return;
         }
     }
 
