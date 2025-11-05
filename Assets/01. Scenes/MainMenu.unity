@@ -458,6 +458,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 273348463690802137, guid: c976f5c66928c7d4899a563e9de1d7f8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273348463690802137, guid: c976f5c66928c7d4899a563e9de1d7f8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnContinue
+      objectReference: {fileID: 0}
     - target: {fileID: 371177904394034158, guid: c976f5c66928c7d4899a563e9de1d7f8,
         type: 3}
       propertyPath: m_Name
@@ -468,6 +478,16 @@ PrefabInstance:
       propertyPath: continueButton
       value: 
       objectReference: {fileID: 1359284309}
+    - target: {fileID: 5090209710265520611, guid: c976f5c66928c7d4899a563e9de1d7f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977407505824888847, guid: c976f5c66928c7d4899a563e9de1d7f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8874198808226910590, guid: c976f5c66928c7d4899a563e9de1d7f8,
         type: 3}
       propertyPath: m_Pivot.x
