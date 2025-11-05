@@ -16,6 +16,11 @@ MonoBehaviour:
   damage: 10
   fireRate: 1
   reloadTime: 1
+  isSingleLoad: 0
   maxAmmo: 12
   maxMag: 5
   isUnlocked: 1
+  penetration: 0
+  fireSound: {fileID: 8300000, guid: d1b2111d695eab54994feb689ac4643e, type: 3}
+  reloadSound: {fileID: 8300000, guid: d252cce54d979f844b0f6b2b8cc493b8, type: 3}
+  pumpSound: {fileID: 0}

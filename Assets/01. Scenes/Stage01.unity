@@ -503,7 +503,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 754308b603bafe241922e3b134a83ae3, type: 3}
---- !u!1001 &2120492599
+--- !u!1001 &1747545429
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -571,11 +571,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc7cbd1140e34384196cbb3fb1292b54, type: 3}
---- !u!4 &2120492600 stripped
+--- !u!4 &1747545430 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1153660647446686908, guid: dc7cbd1140e34384196cbb3fb1292b54,
     type: 3}
-  m_PrefabInstance: {fileID: 2120492599}
+  m_PrefabInstance: {fileID: 1747545429}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2136414046
 PrefabInstance:
@@ -662,7 +662,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 2120492600}
+      objectReference: {fileID: 1747545430}
     - target: {fileID: 988467829762524155, guid: cc35e873b25d3ec498ba8c0eb0dd1b10,
         type: 3}
       propertyPath: chunkPrefabs.Array.size
@@ -786,9 +786,9 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 2120492599}
   - {fileID: 2136414046}
   - {fileID: 1233968347}
   - {fileID: 506468195}
   - {fileID: 210864786}
+  - {fileID: 1747545429}
   - {fileID: 734108378}

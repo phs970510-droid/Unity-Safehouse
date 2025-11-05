@@ -24,6 +24,9 @@ public class PlayerShooter : MonoBehaviour
     private Dictionary<WeaponBase, (int ammo, int mag)> weaponAmmoState
         = new Dictionary<WeaponBase, (int ammo, int mag)>();
 
+    [Header("오디오 출력")]
+    [SerializeField] private AudioSource fireAudioSource;
+
     public int CurrentAmmo => currentAmmo;
     public int CurrentMag => currentMag;
     public int MaxAmmo => currentWeapon != null ? currentWeapon.weaponData.maxAmmo : 0;
@@ -187,6 +190,11 @@ public class PlayerShooter : MonoBehaviour
         currentAmmo--;
         nextFireTime = Time.time + currentWeapon.weaponData.fireRate;
         UpdateAmmoUI();
+
+        if (fireAudioSource != null && currentWeapon.weaponData.fireSound != null)
+        {
+            fireAudioSource.PlayOneShot(currentWeapon.weaponData.fireSound);
+        }
     }
 
     //재장전 요청
@@ -206,7 +214,20 @@ public class PlayerShooter : MonoBehaviour
     //재장전 처리 코루틴
     private IEnumerator ReloadRoutine()
     {
+        //단발용
+        if (currentWeapon.weaponData.isSingleLoad)
+        {
+            yield return StartCoroutine(ReloadSingleLoadWeapon());
+            yield break;
+        }
+
         Debug.Log("재장전 중...");
+
+        if (fireAudioSource != null && currentWeapon.weaponData.reloadSound != null)
+        {
+            fireAudioSource.PlayOneShot(currentWeapon.weaponData.reloadSound);
+        }
+
         yield return new WaitForSeconds(currentWeapon.weaponData.reloadTime);
 
         currentMag--;
@@ -214,6 +235,48 @@ public class PlayerShooter : MonoBehaviour
 
         Debug.Log($"재장전 완료! 현재 탄약: {currentAmmo}/{currentWeapon.weaponData.maxAmmo}, 예비 탄창: {currentMag}");
         UpdateAmmoUI();
+    }
+
+    private IEnumerator ReloadSingleLoadWeapon()
+    {
+        Debug.Log("1발 단위 리로드 시작");
+
+        float perShellTime = currentWeapon.weaponData.reloadTime;
+        int needed = currentWeapon.weaponData.maxAmmo - currentAmmo;
+
+        for (int i = 0; i < needed; i++)
+        {
+            //발사 시 리로드 중단
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("리로드 중단: 발사 명령");
+                yield break;
+            }
+
+            //예비탄(=currentMag)이 없으면 더 이상 장전 불가
+            if (currentMag <= 0)
+            {
+                Debug.Log("예비탄이 없습니다!");
+                break;
+            }
+
+            //장전 사운드
+            if (fireAudioSource != null && currentWeapon.weaponData.reloadSound != null)
+                fireAudioSource.PlayOneShot(currentWeapon.weaponData.reloadSound);
+
+            yield return new WaitForSeconds(perShellTime);
+
+            //실제 탄 이동
+            currentAmmo++;
+            currentMag--; //예비탄 1개 사용
+            UpdateAmmoUI();
+
+            //마지막 장전 후 펌프 동작음
+            if (i == needed - 1 && currentWeapon.weaponData.pumpSound != null)
+                fireAudioSource.PlayOneShot(currentWeapon.weaponData.pumpSound);
+        }
+
+        Debug.Log("1발 단위 리로드 완료");
     }
 
     //탄약 UI 갱신

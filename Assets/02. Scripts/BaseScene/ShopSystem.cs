@@ -10,11 +10,13 @@ public class ShopSystem : MonoBehaviour
     [Header("무기 데이터")]
     public WeaponDataSO pistolData;
     public WeaponDataSO arData;
+    public WeaponDataSO shotgunData;
 
     [Header("가격 설정")]
     public int hpUpgradeCost = 200;
     public int speedUpgradeCost = 150;
     public int unlockARCost = 50;
+    public int unlockSGCost = 500;
 
     // 스탯 강화
     public void BuyStat_HP()
@@ -66,8 +68,10 @@ public class ShopSystem : MonoBehaviour
         int cost = 0;
         switch (weaponName)
         {
-            case "AR": cost = unlockARCost; break;
-            //case "Shotgun": cost = unlockSGCost; break;
+            case "AR": cost = unlockARCost; 
+                break;
+            case "Shotgun": cost = unlockSGCost; 
+                break;
             //이후 추가 무기도 여기서 비용만 등록
             default:
                 Debug.LogWarning($"[ShopSystem] {weaponName}의 해금 비용이 지정되지 않았습니다.");

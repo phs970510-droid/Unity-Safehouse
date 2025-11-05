@@ -57,10 +57,25 @@ public class PlayerBase : MonoBehaviour
     {
         //사망 처리
         Debug.Log("플레이어 사망");
+        //물리적 정지
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.isKinematic = true; //한번 정지하고 다음엔 다시 물리 켜지게 하기
+        }
+        //끼임방지 코드
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+            col.enabled = false;
+
+        //이동 및 공격 비활성화
         controller.enabled = false;
         shooter.enabled = false;
         weaponManager.enabled = false;
-
+        
+        //UI호출
         DeathUI deathUI = FindObjectOfType<DeathUI>(true);
         if (deathUI != null)
             deathUI.ShowDeathMessage(false);

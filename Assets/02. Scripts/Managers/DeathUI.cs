@@ -86,6 +86,10 @@ public class DeathUI : MonoBehaviour
     public void OnToSafehouse()
     {
         Time.timeScale = 1f;
+        //Player 컴포넌트 복구
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            Destroy(player);
         //이후 Safehouse 씬 완성 시 정산 로직 추가
         SceneManager.LoadScene("Safehouse");
     }

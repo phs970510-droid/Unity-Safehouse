@@ -563,6 +563,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3362744867836053697, guid: 159b1876e6d223c42b83cb655e4a39af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5787408915623871407, guid: 159b1876e6d223c42b83cb655e4a39af,
         type: 3}
       propertyPath: m_Pivot.x
@@ -920,6 +925,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShopCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249060873503252019, guid: b032099525a34e14aa8850e3b5f4580b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6671830713487776652, guid: b032099525a34e14aa8850e3b5f4580b,
         type: 3}
