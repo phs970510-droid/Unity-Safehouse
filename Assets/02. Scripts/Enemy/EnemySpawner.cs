@@ -1,23 +1,23 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("½ºÆù ¼³Á¤")]
+    [Header("ìŠ¤í° ì„¤ì •")]
     public GameObject enemyPrefab;
-    public Vector2 areaMin;  // ½ºÆù ¿µ¿ª ÃÖ¼Ò ÁÂÇ¥
-    public Vector2 areaMax;  // ½ºÆù ¿µ¿ª ÃÖ´ë ÁÂÇ¥
+    public Vector2 areaMin;  //ìŠ¤í° ì˜ì—­ ìµœì†Œ ì¢Œí‘œ
+    public Vector2 areaMax;  //ìŠ¤í° ì˜ì—­ ìµœëŒ€ ì¢Œí‘œ
 
-    [Header("Å¸ÀÌ¹Ö ¼³Á¤")]
-    public float startDelay = 3f;    // ÃÊ±â ½ºÆù °£°İ
-    public float minDelay = 0.5f;    // ÃÖ¼Ò °£°İ (µµ´Ş ÈÄ °íÁ¤)
-    public float decreaseAmount = 0.05f; // ½ºÆù ÈÄ °£°İ °¨¼Ò·®
+    [Header("íƒ€ì´ë° ì„¤ì •")]
+    public float startDelay = 3f;    //ì´ˆê¸° ìŠ¤í° ê°„ê²©
+    public float minDelay = 0.5f;    //ìµœì†Œ ê°„ê²© (ë„ë‹¬ í›„ ê³ ì •)
+    public float decreaseAmount = 0.05f; //ìŠ¤í° í›„ ê°„ê²© ê°ì†ŒëŸ‰
 
     private float currentDelay;
     private float timer;
 
-    [Header("Ãæµ¹ °Ë»ç")]
+    [Header("ì¶©ëŒ ê²€ì‚¬")]
     public float checkRadius = 0.6f;
     public LayerMask enemyLayer;
 
@@ -39,12 +39,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void TrySpawn()
     {
-        for (int i = 0; i < 10; i++) // ÃÖ´ë 10¹ø À§Ä¡ Àç½Ãµµ
+        for (int i = 0; i < 10; i++) // ìµœëŒ€ 10ë²ˆ ìœ„ì¹˜ ì¬ì‹œë„
         {
-            Vector2 spawnPos = new Vector2(
+            Vector2 spawnPos = (Vector2)transform.position + new Vector2(
                 Random.Range(areaMin.x, areaMax.x),
                 Random.Range(areaMin.y, areaMax.y)
-            );
+                );
 
             Collider2D hit = Physics2D.OverlapCircle(spawnPos, checkRadius, enemyLayer);
             if (hit == null)
