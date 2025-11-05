@@ -19,7 +19,7 @@ MonoBehaviour:
   isSingleLoad: 0
   maxAmmo: 30
   maxMag: 3
-  isUnlocked: 1
+  isUnlocked: 0
   penetration: 1
   fireSound: {fileID: 8300000, guid: 36ec7499161b381499e3163f7b9ee0bc, type: 3}
   reloadSound: {fileID: 8300000, guid: a80f1630ec19d9e42972080b65b1af5a, type: 3}
