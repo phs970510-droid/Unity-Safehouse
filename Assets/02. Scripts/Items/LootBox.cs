@@ -32,6 +32,16 @@ public class LootBox : MonoBehaviour
     {
         if (opened || player == null) return;
         float dist = Vector2.Distance(player.position, transform.position);
+
+        //거리 멀어지면 자동파괴
+        float destroyDistance = 25f;
+        if (dist > destroyDistance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        //상호작용 처리
         if (dist <= interactRange && Input.GetKeyDown(key))
         {
             Open();
