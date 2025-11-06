@@ -9,9 +9,12 @@ public class StageExitTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            if (rb != null)
-                rb.velocity = Vector2.zero;
+            if (!other.CompareTag("Player")) return;
+
+            var playerBase = other.GetComponent<PlayerBase>();
+            if (playerBase != null)
+                playerBase.DisablePlayerControl();
+
             Time.timeScale = 0f;
 
             DeathUI deathUI = FindObjectOfType<DeathUI>(true);

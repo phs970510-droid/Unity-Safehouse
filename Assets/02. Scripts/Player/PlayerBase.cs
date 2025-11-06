@@ -57,24 +57,8 @@ public class PlayerBase : MonoBehaviour
     {
         //사망 처리
         Debug.Log("플레이어 사망");
-        //물리적 정지
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-            rb.isKinematic = true; //한번 정지하고 다음엔 다시 물리 켜지게 하기
-        }
-        //끼임방지 코드
-        Collider2D col = GetComponent<Collider2D>();
-        if (col != null)
-            col.enabled = false;
+        DisablePlayerControl();
 
-        //이동 및 공격 비활성화
-        controller.enabled = false;
-        shooter.enabled = false;
-        weaponManager.enabled = false;
-        
         //UI호출
         DeathUI deathUI = FindObjectOfType<DeathUI>(true);
         if (deathUI != null)
@@ -87,5 +71,27 @@ public class PlayerBase : MonoBehaviour
     {
         playerData = newData;
         controller.playerData = playerData;
+    }
+    //Die와 ExitTrigger에 공통참조용
+    public void DisablePlayerControl()
+    {
+        // 이동 / 사격 / 무기 교체 중단
+        if (controller != null) controller.enabled = false;
+        if (shooter != null) shooter.enabled = false;
+        if (weaponManager != null) weaponManager.enabled = false;
+
+        // 물리 정지
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.isKinematic = true;
+        }
+
+        // 충돌 꺼서 끼임 방지
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+            col.enabled = false;
     }
 }

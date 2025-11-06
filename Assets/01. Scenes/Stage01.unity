@@ -684,7 +684,7 @@ PrefabInstance:
         type: 3}
       propertyPath: chunkPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 8685483776341054870, guid: 3ada4213b8aa4334a8b16ec28b479da7,
+      objectReference: {fileID: 8090149912209583028, guid: 181e37a3ed744974581ef649bb7a18a8,
         type: 3}
     - target: {fileID: 988467829762524155, guid: cc35e873b25d3ec498ba8c0eb0dd1b10,
         type: 3}
