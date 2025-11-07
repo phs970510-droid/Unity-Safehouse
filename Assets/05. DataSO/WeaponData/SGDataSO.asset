@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe1722d1b6047a408cbc940aa93f881, type: 3}
   m_Name: SGDataSO
   m_EditorClassIdentifier: 
-  weaponName: Shutgun
+  weaponName: Shotgun
   damage: 30
   fireRate: 5
   reloadTime: 1

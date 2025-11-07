@@ -50,3 +50,4 @@ MonoBehaviour:
   allWeaponData:
   - {fileID: 11400000, guid: 5df1497e004d1d64d848a725c8631ed6, type: 2}
   - {fileID: 11400000, guid: 595a59161ffa8ef45b1c1765e7af9c77, type: 2}
+  - {fileID: 11400000, guid: b65f1097e339d004584098e0bf4eaa51, type: 2}
